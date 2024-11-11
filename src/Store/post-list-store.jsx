@@ -4,20 +4,20 @@ export const PostList = createContext({
   postList: [],
   addPost: () => {},
   deletePost: () => {},
+  addinitialposts: () => {},
 });
 
 function postreducer(postList, { payload, type }) {
   if (type == "Delete") return postList.filter((post) => payload !== post.id);
   else if (type == "Add") {
     return [payload, ...postList];
+  } else if (type == "All Post") {
+    return payload.posts;
   }
 }
 
 const PostListProvider = ({ children }) => {
-  const [postList, dispatchPostList] = useReducer(
-    postreducer,
-    DFAULT_POST_LIST
-  );
+  const [postList, dispatchPostList] = useReducer(postreducer, []);
 
   const addPost = (userId, postTitle, postBody, reactions, tags) => {
     dispatchPostList({
@@ -40,8 +40,17 @@ const PostListProvider = ({ children }) => {
     });
   };
 
+  const addinitialposts = (posts) => {
+    dispatchPostList({
+      type: "All Post",
+      payload: { posts },
+    });
+  };
+
   return (
-    <PostList.Provider value={{ postList, addPost, deletePost }}>
+    <PostList.Provider
+      value={{ postList, addPost, deletePost, addinitialposts }}
+    >
       {children}
     </PostList.Provider>
   );

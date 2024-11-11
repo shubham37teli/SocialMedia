@@ -1,5 +1,10 @@
-.app-container {
+.app-container{
   display: flex;
+}
+
+.message-container{
+  padding-top: 50px;
+  font-size: -webkit-xxx-large;
 }
 
 .content{
