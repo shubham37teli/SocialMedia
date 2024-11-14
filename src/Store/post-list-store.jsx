@@ -1,10 +1,10 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState, useEffect } from "react";
 
 export const PostList = createContext({
   postList: [],
+  loading: false,
   addPost: () => {},
   deletePost: () => {},
-  addinitialposts: () => {},
 });
 
 function postreducer(postList, { payload, type }) {
@@ -18,18 +18,12 @@ function postreducer(postList, { payload, type }) {
 
 const PostListProvider = ({ children }) => {
   const [postList, dispatchPostList] = useReducer(postreducer, []);
+  const [loading, setloading] = useState(false);
 
-  const addPost = (userId, postTitle, postBody, reactions, tags) => {
+  const addPost = (post) => {
     dispatchPostList({
       type: "Add",
-      payload: {
-        id: Date.now(),
-        title: postTitle,
-        body: postBody,
-        reactions: reactions,
-        userId: userId,
-        tags: tags,
-      },
+      payload: post,
     });
   };
 
@@ -47,10 +41,23 @@ const PostListProvider = ({ children }) => {
     });
   };
 
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    setloading(true);
+    fetch("https://dummyjson.com/posts", { signal })
+      .then((obj) => obj.json())
+      .then((resp) => {
+        addinitialposts(resp.posts);
+        setloading(false);
+      });
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
   return (
-    <PostList.Provider
-      value={{ postList, addPost, deletePost, addinitialposts }}
-    >
+    <PostList.Provider value={{ postList, loading, addPost, deletePost }}>
       {children}
     </PostList.Provider>
   );

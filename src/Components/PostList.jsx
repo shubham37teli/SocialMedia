@@ -5,24 +5,8 @@ import { useContext, useEffect, useState } from "react";
 import Loading from "./Loading";
 
 const PostList = () => {
-  const { postList, addinitialposts } = useContext(PostListData);
-  const [loading, setloading] = useState(false);
-  useEffect(() => {
-    
-    const controller = new AbortController();
-    const signal = controller.signal;
-    setloading(true);
-    fetch("https://dummyjson.com/posts", { signal })
-      .then((obj) => obj.json())
-      .then((resp) => {
-        addinitialposts(resp.posts);
-        setloading(false);
-      });
-    return () => {
-      controller.abort();
-    }  
-
-  }, []);
+  const { postList , loading } = useContext(PostListData);
+  
 
   return (
     <>
