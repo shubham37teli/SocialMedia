@@ -5,7 +5,7 @@ const Post = ({ Post }) => {
   const { deletePost } = useContext(PostList);
 
   return (
-    <div className="card post-card" style={{ width: "30rem" }}>
+    <div className="card post-card">
       <div className="card-body">
         <h5 className="card-title">
           {Post.title}
@@ -18,7 +18,7 @@ const Post = ({ Post }) => {
           <span className="badge text-bg-primary hashtag">{tag}</span>
         ))}
         <div className="alert alert-success reactions" role="alert">
-          This post has been reacted by {Post.reactions} people
+          This post has been liked by {Post.reactions.likes} people
         </div>
       </div>
     </div>
