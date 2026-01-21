@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useContext } from "react";
 import { TiDelete } from "react-icons/ti";
 import { PostList } from "../Store/post-list-store";
@@ -15,7 +16,7 @@ const Post = ({ Post }) => {
         </h5>
         <p className="card-text">{Post.body}</p>
         {Post.tags.map((tag) => (
-          <span className="badge text-bg-primary hashtag">{tag}</span>
+          <span key={Post.id} className="badge text-bg-primary hashtag">{tag}</span>
         ))}
         <div className="alert alert-success reactions" role="alert">
           This post has been liked by {Post.reactions.likes} people

@@ -1,5 +1,3 @@
-import { DiVim } from "react-icons/di";
-
 const Message = () => {
     return(
         <div className="message-container">

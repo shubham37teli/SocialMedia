@@ -1,7 +1,7 @@
 import Post from "./Post";
 import Message from "./Message";
 import { PostList as PostListData } from "../Store/post-list-store";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import Loading from "./Loading";
 
 const PostList = () => {
