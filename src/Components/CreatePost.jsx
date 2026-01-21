@@ -70,7 +70,6 @@ const CreatePost = () => {
         </label>
         <input
           type="text"
-          row="4"
           className="form-control"
           id="body"
           placeholder="Tell us more about it"
